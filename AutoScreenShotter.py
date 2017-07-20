@@ -26,7 +26,7 @@ for i in range(pgs):
 	os.system('screencapture -x -t PDF -T 2 ~/Desktop/{0}/{0}_pg{1}.pdf'.format(name, i+1))
 
 	print("Got Page {0}/{1}...".format(i+1, pgs))
-	time.sleep(3)
+	time.sleep(2)
 
 # Put it all together
 print('Joining all the pages...')
