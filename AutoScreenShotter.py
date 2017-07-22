@@ -18,12 +18,16 @@ print("Ready or not, here we gooooo")
 
 os.system("mkdir ~/Desktop/{0}".format(name))
 
+pglist = []
+
 for i in range(pgs):
 	# Send Arrow Key
 	os.system('osascript -e "tell application \\"System Events\\" to key code 124"')
+        
+        pglist.append( "~/Desktop/{0}/{0}_pg{1}.pdf".format(name, i+1) )
 
 	# Take And Save Screenshot
-	os.system('screencapture -x -t PDF -T 2 ~/Desktop/{0}/{0}_pg{1}.pdf'.format(name, i+1))
+	os.system('screencapture -x -t PDF -T 2 {0}'.format(pglist[-1]))
 
 	print("Got Page {0}/{1}...".format(i+1, pgs))
 	time.sleep(2)
@@ -31,7 +35,9 @@ for i in range(pgs):
 # Put it all together
 print('Joining all the pages...')
 
-os.system('"/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py" -o ~/Desktop/{0}/{0}_ebook.pdf ~/Desktop/{0}/*.pdf'.format(name))
+# Create Explicit Filename list
+
+os.system('"/System/Library/Automator/Combine PDF Pages.action/Contents/Resources/join.py" -o ~/Desktop/{0}/{0}_ebook.pdf {1}'.format(name, " ".join(pglist)))
 
 print("Donzos.\nEbook Saved in folder on desktop:\n~/Desktop/{0}/{0}_ebook.pdf".format(name))
 
